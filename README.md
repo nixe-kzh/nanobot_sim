@@ -12,8 +12,8 @@
 **Vehicles**
 
 - **diff_car**: a simple differential robot equipped with 2-wheel drive.
-- **tracked**: a compact tracked mobile robot specifically designed to tackle demanding off-road terrains, as well as confined and challenging work areas.
-- **uav**: a simple quadrotor drone based on PX4 firmware.
+- **diff_tracked**: a compact tracked mobile robot specifically designed to tackle demanding off-road terrains, as well as confined and challenging work areas.
+- **quad_uav**: a simple quadrotor drone based on PX4 firmware.
 
 ## Third-party
 
