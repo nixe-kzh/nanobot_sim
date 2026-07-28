@@ -1,8 +1,8 @@
 # NanoBot_Sim
 
-***A repo. which maintains simulation tools in gazebo for robotics.***
+***A repo. which maintains simulation tools in Gazebo for robotics.***
 
-![](imgs/gazebo_rviz.gif)
+![](imgs/nanobot_sim.png)
 
 **Supported Platforms**
 
@@ -17,14 +17,14 @@
 
 ## Third-party
 
-- gazebo11
+- Gazebo 11
 - other related tools
   
   ```bash
   # robot control middleware and kinematics plugins of common models
   sudo apt install ros-noetic-ros-control ros-noetic-ros-controllers
   
-  # communication interface between gazebo and ROS 
+  # communication interface between Gazebo and ROS 
   sudo apt install ros-noetic-gazebo-ros ros-noetic-gazebo-ros-control
   
   # visualize the joint control
