@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="tracked_imu" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <!-- Installation pose relative to base_link. Adjust these values to the
-       measured IMU extrinsics on the real robot. -->
+  <!-- Installation pose relative to lidar_link. The IMU is stacked directly
+       above the lidar, without overlap between their visual geometries. -->
   <xacro:property name="imu_size" value="0.05" />
   <xacro:property name="imu_x" value="0.0"/>
   <xacro:property name="imu_y" value="0.0"/>
@@ -32,7 +32,7 @@
   </link>
 
   <joint name="imu_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="lidar_link"/>
     <child link="imu_link"/>
     <origin xyz="${imu_x} ${imu_y} ${imu_z}" rpy="0 0 0"/>
   </joint>

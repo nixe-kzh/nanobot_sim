@@ -16,5 +16,7 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find diff_tracked_base)/rviz/display.rviz" />
+    args="-d $(find diff_tracked_base)/rviz/display.rviz" >
+    <env name="LIBGL_ALWAYS_SOFTWARE" value="1"/>
+  </node>
 </launch>
