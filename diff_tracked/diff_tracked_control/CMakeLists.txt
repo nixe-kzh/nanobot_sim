@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
 )
+
 catkin_package(
   CATKIN_DEPENDS
     geometry_msgs
@@ -21,19 +22,19 @@ include_directories(
 )
 
 #c++设置项
-add_executable(straight_line_controller_node
-  src/straight_line_controller.cpp
+add_executable(line_rpp_controller_node
+  src/line_rpp_controller.cpp
 )
 
-add_dependencies(straight_line_controller_node
+add_dependencies(line_rpp_controller_node
   ${catkin_EXPORTED_TARGETS}
 )
 
-target_link_libraries(straight_line_controller_node
+target_link_libraries(line_rpp_controller_node
   ${catkin_LIBRARIES}
 )
 
-install(TARGETS straight_line_controller_node
+install(TARGETS line_rpp_controller_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

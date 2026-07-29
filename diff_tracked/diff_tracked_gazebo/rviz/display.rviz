@@ -4,9 +4,6 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
-        - /TF1
         - /TF1/Frames1
         - /PointCloud21
       Splitter Ratio: 0.34076017141342163
@@ -309,8 +306,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 1.0009434223175049
-        Min Value: -0.0013751685619354248
+        Max Value: 1.0049118995666504
+        Min Value: -0.0016506016254425049
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -362,7 +359,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 12.973401069641113
+      Distance: 20.957916259765625
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -378,9 +375,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5999994874000549
+      Pitch: 1.109999179840088
       Target Frame: <Fixed Frame>
-      Yaw: 2.588571786880493
+      Yaw: 3.158574104309082
     Saved: ~
 Window Geometry:
   Displays:

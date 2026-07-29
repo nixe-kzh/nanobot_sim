@@ -1,12 +1,9 @@
 <launch>
   <arg name="distance" default="45.0"/>
   <arg name="speed" default="0.8"/>
-  <arg name="odom_topic" default="/odom"/>
+  <arg name="odom_topic" default="/gz_odom"/>
 
-  <node pkg="diff_tracked_control"
-        type="straight_line_controller_node"
-        name="straight_line_controller"
-        output="screen">
+  <node pkg="diff_tracked_control" type="line_rpp_controller_node" name="line_rpp_controller_node" output="screen">
     <param name="odom_topic" value="$(arg odom_topic)"/>
     <param name="cmd_vel_topic" value="/cmd_vel"/>
     <param name="planned_path_topic" value="/planned_path"/>

@@ -3,7 +3,7 @@
 - **diff_tracked_base**: URDF descriptions.
 - **diff_tracked_gazebo**: Gazebo simulation.
 - **diff_tracked_control**: RPP straight-line controller.
-- **diff_tracked_bringup**: Gazebo, FAST-LIO, and controller bringup.
+- **diff_tracked_bringup**: Gazebo, Rviz and controller bringup.
 
 ## Run
 
@@ -15,8 +15,8 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py _speed:=0.3 _turn:=1.0 _re
 ```
 
 
-Gazebo simulation with FAST-LIO and RPP straight-line control:
+Gazebo simulation with RPP straight-line control:
 
 ```bash
-roslaunch diff_tracked_bringup tracked_fastlio_control.launch
+roslaunch diff_tracked_bringup tracked_rpp_control.launch
 ```
