@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
-     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
-     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
-<robot  name="bunker_description" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find diff_tracked_base)/urdf/laser_link.xacro"/>
-  <xacro:include filename="$(find diff_tracked_base)/urdf/laser_driver.xacro"/>
-  <xacro:include filename="$(find diff_tracked_base)/urdf/imu_link.xacro"/>
-  <xacro:include filename="$(find diff_tracked_base)/urdf/imu_driver.xacro"/>
- 
-  <link
-    name="base_link">
+
+<robot name="bunker" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <link name="base_link">
      <inertial>
       <origin
         xyz="0.0212410555532523 0.00475458359568469 -0.127580557949736"
@@ -39,9 +31,7 @@
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 -0.12"
-        rpy="0 0 0" />
+      <origin xyz="0 0 -0.12" rpy="0 0 0" />
       <geometry>
         <!-- The original BUNKER mesh includes the tracks down to z=-0.358 m.
              Using it as the chassis collision keeps the driven wheels above
@@ -51,8 +41,8 @@
       </geometry>
     </collision>
   </link>
-  <link
-    name="wheel1_Link">
+
+  <link name="wheel1_Link">
     <inertial>
       <origin
         xyz="0 -1.38777878078145E-17 -0.0719999999999999"
@@ -91,9 +81,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel1_joint"
-    type="continuous">
+  <joint name="wheel1_joint" type="continuous">
     <origin
       xyz="0.44403 0.3495 -0.12853"
       rpy="1.5708 0 -3.1416" />
@@ -107,8 +95,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel1.1_Link">
+  <link name="wheel1.1_Link">
     <inertial>
       <origin
         xyz="-1.74279013442913E-08 5.87093572021469E-08 -0.0720000000000001"
@@ -147,9 +134,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel1.1_jont"
-    type="continuous">
+  <joint name="wheel1.1_jont" type="continuous">
     <origin
       xyz="0.37551 0.3495 -0.22305"
       rpy="1.5708 0 -3.1416" />
@@ -163,8 +148,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel1.2_Link">
+  <link name="wheel1.2_Link">
     <inertial>
       <origin
         xyz="1.66533453693773E-16 4.16333634234434E-17 -0.0720000000000002"
@@ -203,9 +187,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel1.2_joint"
-    type="continuous">
+  <joint name="wheel1.2_joint" type="continuous">
     <origin
       xyz="0.29039 0.3495 -0.28104"
       rpy="1.5708 0 -3.1416" />
@@ -219,8 +201,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel1.3_Link">
+  <link name="wheel1.3_Link">
     <inertial>
       <origin
         xyz="3.44025652177504E-05 -2.66346274915008E-05 -0.0701504149473696"
@@ -259,9 +240,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel1.3_joint"
-    type="continuous">
+  <joint name="wheel1.3_joint" type="continuous">
     <origin
       xyz="0.29603 0.3495 -0.087"
       rpy="1.5708 0 -3.1416" />
@@ -275,8 +254,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel2_Link">
+  <link name="wheel2_Link">
     <inertial>
       <origin
         xyz="-1.66533453693773E-16 0 0.072"
@@ -315,9 +293,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel2_joint"
-    type="continuous">
+  <joint name="wheel2_joint" type="continuous">
     <origin
       xyz="0.44403 -0.3495 -0.12853"
       rpy="1.5708 0 -3.1416" />
@@ -331,8 +307,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel2.1_Link">
+  <link name="wheel2.1_Link">
     <inertial>
       <origin
         xyz="-1.74279017328693E-08 5.87093572160247E-08 0.0720000000000002"
@@ -371,9 +346,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel2.1_joint"
-    type="continuous">
+  <joint name="wheel2.1_joint" type="continuous">
     <origin
       xyz="0.37551 -0.3495 -0.22305"
       rpy="1.5708 0 -3.1416" />
@@ -387,8 +360,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel2.2_Link">
+  <link name="wheel2.2_Link">
     <inertial>
       <origin
         xyz="-1.38777878078145E-16 -4.85722573273506E-17 0.0720000000000003"
@@ -427,9 +399,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel2.2_joint"
-    type="continuous">
+  <joint name="wheel2.2_joint" type="continuous">
     <origin
       xyz="0.29039 -0.3495 -0.28104"
       rpy="1.5708 0 -3.1416" />
@@ -443,8 +413,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel2.3_Link">
+  <link name="wheel2.3_Link">
     <inertial>
       <origin
         xyz="3.51083051564616E-05 -2.7181014665284E-05 0.0709276770204769"
@@ -483,9 +452,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel2.3_joint"
-    type="continuous">
+  <joint name="wheel2.3_joint" type="continuous">
     <origin
       xyz="0.29603 -0.3495 -0.087"
       rpy="1.5708 0 -3.1416" />
@@ -499,8 +466,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel3_Link">
+  <link name="wheel3_Link">
     <inertial>
       <origin
         xyz="-1.5143569731535E-10 7.07767178198537E-16 -0.0246054820762604"
@@ -539,9 +505,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel3_joint"
-    type="continuous">
+  <joint name="wheel3_joint" type="continuous">
     <origin
       xyz="-0.38871 0.295 -0.19381"
       rpy="1.5708 0 -3.1416" />
@@ -555,8 +519,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel3.1_Link">
+  <link name="wheel3.1_Link">
     <inertial>
       <origin
         xyz="5.55111512312578E-17 5.55111512312578E-17 -0.0720000000000002"
@@ -595,9 +558,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel3.1_joint"
-    type="continuous">
+  <joint name="wheel3.1_joint" type="continuous">
     <origin
       xyz="-0.23111 0.3495 -0.27671"
       rpy="1.5708 0 -3.1416" />
@@ -611,8 +572,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel3.2_Link">
+  <link name="wheel3.2_Link">
     <inertial>
       <origin
         xyz="7.58128369110489E-17 7.63278329429795E-17 -0.0720000000000003"
@@ -651,9 +611,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel3.2_joint"
-    type="continuous">
+  <joint name="wheel3.2_joint" type="continuous">
     <origin
       xyz="0.043885 0.3495 -0.27671"
       rpy="1.5708 0 -3.1416" />
@@ -667,8 +625,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel3.3_Link">
+  <link name="wheel3.3_Link">
     <inertial>
       <origin
         xyz="1.37732703020532E-08 -5.29206664124648E-05 -0.0701501700151683"
@@ -707,9 +664,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel3.3_joint"
-    type="continuous">
+  <joint name="wheel3.3_joint" type="continuous">
     <origin
       xyz="-0.28597 0.3495 -0.087"
       rpy="1.5708 0 -3.1416" />
@@ -723,8 +678,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel4_Link">
+  <link name="wheel4_Link">
     <inertial>
       <origin
         xyz="5.55111512312578E-17 1.51436273243544E-10 0.0245928853369881"
@@ -763,9 +717,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel4_joint"
-    type="continuous">
+  <joint name="wheel4_joint" type="continuous">
     <origin
       xyz="-0.38871 -0.295 -0.19381"
       rpy="1.5708 0 -3.1416" />
@@ -779,8 +731,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel4.1_Link">
+  <link name="wheel4.1_Link">
     <inertial>
       <origin
         xyz="-1.11022302462516E-16 -5.55111512312578E-17 0.0720000000000002"
@@ -819,9 +770,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel4.1_joint"
-    type="continuous">
+  <joint name="wheel4.1_joint" type="continuous">
     <origin
       xyz="-0.23111 -0.3495 -0.27671"
       rpy="1.5708 0 -3.1416" />
@@ -835,8 +784,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel4.2_Link">
+  <link name="wheel4.2_Link">
     <inertial>
       <origin
         xyz="-7.64498056873841E-17 -4.85722573273506E-17 0.0720000000000004"
@@ -875,9 +823,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel4.2_joint"
-    type="continuous">
+  <joint name="wheel4.2_joint" type="continuous">
     <origin
       xyz="0.043885 -0.3495 -0.27671"
       rpy="1.5708 0 -3.1416" />
@@ -891,8 +837,7 @@
       effort="30"
       velocity="20" />
   </joint>
-  <link
-    name="wheel4.3_Link">
+  <link name="wheel4.3_Link">
     <inertial>
       <origin
         xyz="1.37732700244975E-08 -5.29206664124926E-05 0.0701152686893121"
@@ -931,9 +876,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="wheel4.3_joint"
-    type="continuous">
+  <joint name="wheel4.3_joint" type="continuous">
     <origin
       xyz="-0.28597 -0.3495 -0.087"
       rpy="1.5708 0 -3.1416" />
@@ -948,58 +891,10 @@
       velocity="20" />
   </joint>
 
-  <!-- /////////////////////////////////   gazebo color   ////////////////////////////////////// -->
-
- <gazebo reference="base_link">
+  <gazebo reference="base_link">
      <material>Gazebo/Gray</material>
   </gazebo>
 
-  <!-- <gazebo>
-    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <odometryRate>20.0</odometryRate>
-      <robotBaseFrame>base_link</robotBaseFrame>
-    </plugin>
-  </gazebo> -->
-  <!-- <gazebo>
-    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <odometryRate>20.0</odometryRate>
-      <leftFrontJoint>wheel1_2_joint</leftFrontJoint>
-      <rightFrontJoint>wheel2_2_joint</rightFrontJoint>
-      <leftRearJoint>wheel3_1_joint</leftRearJoint>
-      <rightRearJoint>wheel4_1_joint</rightRearJoint>
-      <robotBaseFrame>base_link</robotBaseFrame>
-    </plugin>
-  </gazebo> -->
-  
-  <gazebo>
-    <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so">
-      <legacyMode>false</legacyMode>
-      <updateRate>100.0</updateRate>
-
-      <leftJoint>wheel1.2_joint</leftJoint>
-      <rightJoint>wheel2.2_joint</rightJoint>
-      <wheelSeparation>0.699</wheelSeparation>
-
-      <wheelDiameter>0.102</wheelDiameter>
-      <wheelTorque>30.0</wheelTorque>
-      <wheelAcceleration>1.8</wheelAcceleration>
-
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>base_link</robotBaseFrame>
-      <publishOdom>true</publishOdom>
-      <publishOdomTF>false</publishOdomTF>
-      <publishWheelTF>false</publishWheelTF>
-      <publishWheelJointState>false</publishWheelJointState>
-    </plugin>
-  </gazebo>
 
   <gazebo reference="wheel1.2_Link">
     <mu1>1.0</mu1>
@@ -1007,42 +902,12 @@
     <kp>100000.0</kp>
     <kd>1.0</kd>
   </gazebo>
+
   <gazebo reference="wheel2.2_Link">
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
     <kp>100000.0</kp>
     <kd>1.0</kd>
   </gazebo>
-  
-  <gazebo>
-  <plugin name="joint_state_publisher"
-          filename="libgazebo_ros_joint_state_publisher.so">
-    <updateRate>50</updateRate>
-    <jointName>
-      wheel1_joint,
-      wheel1.1_jont,
-      wheel1.2_joint,
-      wheel1.3_joint,
-      wheel2_joint,
-      wheel2.1_joint,
-      wheel2.2_joint,
-      wheel2.3_joint,
-      wheel3_joint,
-      wheel3.1_joint,
-      wheel3.2_joint,
-      wheel3.3_joint,
-      wheel4_joint,
-      wheel4.1_joint,
-      wheel4.2_joint,
-      wheel4.3_joint
-    </jointName>
-  </plugin>
-</gazebo>
-  <!-- <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <legacyModeNS>true</legacyModeNS>
-    </plugin>
-  </gazebo> -->
 
 </robot>

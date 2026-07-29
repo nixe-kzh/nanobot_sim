@@ -1,4 +1,4 @@
-<robot name="laser_driver"
+<robot name="laser_3d_driver"
   xmlns:xacro="http://wiki.ros.org/xacro">
   <gazebo reference="laser">
     <sensor type="ray" name="vlp16">

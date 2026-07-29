@@ -1,7 +1,7 @@
 <robot name="diff_move"
   xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="joint_trans" params="joint_name">
+  <!-- <xacro:macro name="joint_trans" params="joint_name">
     <transmission name="${joint_name}_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${joint_name}">
@@ -14,7 +14,7 @@
     </transmission>
   </xacro:macro>
   <xacro:joint_trans joint_name="left_wheel2base_link" />
-  <xacro:joint_trans joint_name="right_wheel2base_link" />
+  <xacro:joint_trans joint_name="right_wheel2base_link" /> -->
 
   <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">

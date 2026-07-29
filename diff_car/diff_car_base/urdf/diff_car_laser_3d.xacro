@@ -1,9 +1,9 @@
-<robot name="diff_car_laser"
+<robot name="diff_car_laser_3d"
   xmlns:xacro="http://wiki.ros.org/xacro">
   <xacro:include filename="head.xacro" />
   <xacro:include filename="base.xacro" />
   <xacro:include filename="laser.xacro" />
-  <xacro:include filename="laser_driver.xacro" />
+  <xacro:include filename="laser_3d_driver.xacro" />
   <xacro:include filename="imu.xacro" />
   <xacro:include filename="imu_driver.xacro" />
   <xacro:include filename="camera.xacro" />

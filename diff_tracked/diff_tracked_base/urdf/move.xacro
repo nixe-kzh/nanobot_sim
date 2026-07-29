@@ -1,0 +1,28 @@
+<robot name="bunker_move"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <updateRate>100.0</updateRate>
+
+      <leftJoint>wheel1.2_joint</leftJoint>
+      <rightJoint>wheel2.2_joint</rightJoint>
+
+      <wheelSeparation>0.60</wheelSeparation>
+      <wheelDiameter>0.102</wheelDiameter>
+      <wheelTorque>30.0</wheelTorque>
+      <wheelAcceleration>1.8</wheelAcceleration>
+
+      <commandTopic>/cmd_vel</commandTopic>
+      <odometryTopic>/gz_odom</odometryTopic>
+      <odometryFrame>gz_odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <publishOdom>true</publishOdom>
+      <publishOdomTF>false</publishOdomTF>
+      <publishWheelTF>false</publishWheelTF>
+      <publishWheelJointState>false</publishWheelJointState>
+    </plugin>
+  </gazebo>
+
+</robot>
