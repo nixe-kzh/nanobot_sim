@@ -2,31 +2,21 @@
   xmlns:xacro="http://wiki.ros.org/xacro">
 
   <gazebo>
-    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-      <updateRate>100.0</updateRate>
+    <plugin name="planar_move_controller" filename="libgazebo_ros_planar_move.so">
 
-      <leftJoint>wheel1.2_joint</leftJoint>
-      <rightJoint>wheel2.2_joint</rightJoint>
-      
-      <wheelSeparation>0.6</wheelSeparation>
-      <wheelDiameter>0.102</wheelDiameter>
-      <wheelTorque>30</wheelTorque>
-      <wheelAcceleration>1.8</wheelAcceleration>
-      
       <commandTopic>/cmd_vel</commandTopic>
-      <odometryFrame>world</odometryFrame>
       <odometryTopic>/gz_odom</odometryTopic>
+      <odometryFrame>world</odometryFrame>
       <robotBaseFrame>base_link</robotBaseFrame>
-      
-      <!-- Set to true to swap right and left wheels, defaults to true -->
-      <legacyMode>false</legacyMode>
-      <!-- joint_state_publisher + robot_state_publisher own all wheel-link TFs.
-           Publishing these two here as well produces TF_REPEATED_DATA in RViz. -->
-      <publishWheelTF>false</publishWheelTF>
-      <!-- Set to true to publish sensor_msgs/JointState on /joint_states for the wheel joints, defaults to false -->
-      <publishWheelJointState>false</publishWheelJointState>
-      <!-- Set to true to publish transforms for the odometry, defaults to true -->
-      <publishOdom>true</publishOdom>
+
+      <odometryRate>100.0</odometryRate>
+
+      <leftFrontJoint>wheel1_2_joint</leftFrontJoint>
+      <rightFrontJoint>wheel2_2_joint</rightFrontJoint>
+      <leftRearJoint>wheel3_1_joint</leftRearJoint>
+      <rightRearJoint>wheel4_1_joint</rightRearJoint>
+      <robotBaseFrame>base_link</robotBaseFrame>
+
     </plugin>
   </gazebo>
 
