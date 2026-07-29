@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="tracked_imu_driver" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <gazebo reference="imu_link">
+  <gazebo reference="imu">
     <sensor name="tracked_imu_sensor" type="imu">
       <always_on>true</always_on>
       <visualize>false</visualize>
@@ -8,12 +8,12 @@
       <pose>0 0 0 0 0 0</pose>
       <plugin name="tracked_imu_plugin" filename="libgazebo_ros_imu_sensor.so">
         <topicName>/imu</topicName>
-        <bodyName>imu_link</bodyName>
-        <updateRateHZ>300.0</updateRateHZ>
+        <bodyName>imu</bodyName>
+        <updateRateHZ>100.0</updateRateHZ>
         <gaussianNoise>0.0</gaussianNoise>
         <xyzOffset>0 0 0</xyzOffset>
         <rpyOffset>0 0 0</rpyOffset>
-        <frameName>imu_link</frameName>
+        <frameName>imu</frameName>
       </plugin>
     </sensor>
   </gazebo>

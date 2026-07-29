@@ -29,7 +29,7 @@
       <wheelAcceleration>1.8</wheelAcceleration>
       
       <commandTopic>/cmd_vel</commandTopic>
-      <odometryFrame>gz_odom</odometryFrame>
+      <odometryFrame>world</odometryFrame>
       <odometryTopic>/gz_odom</odometryTopic>
       <robotBaseFrame>base_footprint</robotBaseFrame>
       

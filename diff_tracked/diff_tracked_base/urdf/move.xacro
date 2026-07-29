@@ -3,25 +3,30 @@
 
   <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-      <legacyMode>false</legacyMode>
       <updateRate>100.0</updateRate>
 
       <leftJoint>wheel1.2_joint</leftJoint>
       <rightJoint>wheel2.2_joint</rightJoint>
-
-      <wheelSeparation>0.60</wheelSeparation>
+      
+      <wheelSeparation>0.6</wheelSeparation>
       <wheelDiameter>0.102</wheelDiameter>
-      <wheelTorque>30.0</wheelTorque>
+      <wheelTorque>30</wheelTorque>
       <wheelAcceleration>1.8</wheelAcceleration>
-
+      
       <commandTopic>/cmd_vel</commandTopic>
+      <odometryFrame>world</odometryFrame>
       <odometryTopic>/gz_odom</odometryTopic>
-      <odometryFrame>gz_odom</odometryFrame>
       <robotBaseFrame>base_link</robotBaseFrame>
-      <publishOdom>true</publishOdom>
-      <publishOdomTF>false</publishOdomTF>
+      
+      <!-- Set to true to swap right and left wheels, defaults to true -->
+      <legacyMode>false</legacyMode>
+      <!-- joint_state_publisher + robot_state_publisher own all wheel-link TFs.
+           Publishing these two here as well produces TF_REPEATED_DATA in RViz. -->
       <publishWheelTF>false</publishWheelTF>
+      <!-- Set to true to publish sensor_msgs/JointState on /joint_states for the wheel joints, defaults to false -->
       <publishWheelJointState>false</publishWheelJointState>
+      <!-- Set to true to publish transforms for the odometry, defaults to true -->
+      <publishOdom>true</publishOdom>
     </plugin>
   </gazebo>
 
