@@ -15,6 +15,10 @@
 - **diff_tracked**: a compact tracked mobile robot specifically designed to tackle demanding off-road terrains, as well as confined and challenging work areas.
 - **quad_uav**: a simple quadrotor drone based on PX4 firmware.
 
+**Shared simulation resources**
+
+- **gazebo_worlds**: vehicle-independent Gazebo worlds and the common world launcher.
+
 ## Third-party
 
 - Gazebo 11
@@ -48,6 +52,20 @@ cd ws_nanobot_sim/src
 git clone git@github.com:zhan994/nanobot_sim.git
 cd ..
 catkin_make
+```
+
+Launch a world without spawning a vehicle:
+
+```bash
+roslaunch gazebo_worlds world.launch \
+  world_name:=$(rospack find gazebo_worlds)/worlds/iscas_museum.world
+```
+
+Vehicle launch files accept the same `world_name` argument, so any shared world can be selected without editing the package:
+
+```bash
+roslaunch diff_car_gazebo diff_car_gazebo.launch \
+  world_name:=$(rospack find gazebo_worlds)/worlds/clearpath_playpen.world
 ```
 
 ## Related Work
