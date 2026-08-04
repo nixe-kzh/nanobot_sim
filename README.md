@@ -1,6 +1,6 @@
 # NanoBot_Sim
 
-***A repo. which maintains simulation tools in Gazebo for robotics.***
+***A repo. which maintains simulation tools in Gazebo for Robotics.***
 
 ![](imgs/nanobot_sim.png)
 
@@ -70,4 +70,5 @@ roslaunch diff_car_gazebo diff_car_gazebo.launch \
 
 ## Related Work
 
-[ugv_gazebo_sim: AgileX Product Gazebo Simulate](https://github.com/agilexrobotics/ugv_gazebo_sim)
+- [ugv_gazebo_sim](https://github.com/agilexrobotics/ugv_gazebo_sim): AgileX Product Gazebo Simulate.
+- [gazebo_models](https://github.com/osrf/gazebo_models): Gazebo database of SDF models.
