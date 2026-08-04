@@ -1,18 +1,11 @@
 <launch>
-  <arg name="world" default="weston_robot_empty"
-       doc="World basename from the gazebo_worlds/worlds directory (without .world)"/>
-  <arg name="world_name" default="$(find gazebo_worlds)/worlds/$(arg world).world"
-       doc="Absolute world path; overrides the world argument when supplied"/>
+  <arg name="world_name" default="$(find gazebo_worlds)/worlds/weston_robot_empty.world"/>
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="verbose" default="false"/>
-
-  <!-- Keep bundled models self-contained; preserve any user model path. -->
-  <env name="GAZEBO_MODEL_PATH"
-       value="$(find gazebo_worlds)/models:$(optenv GAZEBO_MODEL_PATH)"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/>
