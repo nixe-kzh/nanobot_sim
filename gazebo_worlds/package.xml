@@ -5,9 +5,16 @@
   <description>Shared Gazebo worlds for the NanoBot simulation vehicles.</description>
 
   <maintainer email="zhanzhihao_dt@163.com">zhan</maintainer>
+  <!-- See README.md and third_party/NOTICE.md for per-file licensing. -->
   <license>Apache-2.0</license>
+  <license>GPL-3.0-only</license>
+  <license>CC-BY-3.0</license>
 
   <buildtool_depend>catkin</buildtool_depend>
 
   <exec_depend>gazebo_ros</exec_depend>
+
+  <export>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+  </export>
 </package>
