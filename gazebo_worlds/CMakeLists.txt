@@ -6,7 +6,7 @@ find_package(catkin REQUIRED)
 catkin_package()
 
 install(
-  DIRECTORY launch worlds models screenshots third_party
+  DIRECTORY launch worlds models imgs
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
