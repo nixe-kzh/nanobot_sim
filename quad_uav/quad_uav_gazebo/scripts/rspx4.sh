@@ -9,7 +9,7 @@ set -Eeuo pipefail
 PX4_DIR="${PX4_DIR:-$HOME/px4_dev}"
 EXTRA_WS_SETUP="${EXTRA_WS_SETUP:-}"
 
-WORLD_NAME="${WORLD_NAME:-empty.world}"
+WORLD_NAME="${WORLD_NAME:-staggered_blocks_50m.world}"
 SDF_NAME="${SDF_NAME:-iris_lidar/iris_lidar.sdf}"
 GUI_ENABLE="${GUI_ENABLE:-true}"
 PX4_SIM_SPEED="${PX4_SIM_SPEED:-1.0}"
@@ -91,12 +91,17 @@ if [[ "$STREAM_CONFIG_METHOD" == "2" ]]; then
     command -v rosrun >/dev/null 2>&1 || { echo "Error: 未找到 rosrun，请先 source ROS 1 环境" >&2; exit 1; }
 fi
 
+WORLD_PKG_PATH="$(rospack find gazebo_worlds 2>/dev/null)" || {
+    echo "Error: ROS package 'gazebo_worlds' 未找到" >&2
+    exit 1
+}
+
 GAZEBO_PKG_PATH="$(rospack find mavlink_sitl_gazebo 2>/dev/null)" || {
     echo "Error: ROS package 'mavlink_sitl_gazebo' 未找到" >&2
     exit 1
 }
 
-WORLD_PATH="$GAZEBO_PKG_PATH/worlds/$WORLD_NAME"
+WORLD_PATH="$WORLD_PKG_PATH/worlds/$WORLD_NAME"
 SDF_PATH="$GAZEBO_PKG_PATH/models/$SDF_NAME"
 
 [[ -f "$WORLD_PATH" ]] || { echo "Error: world 文件不存在: $WORLD_PATH" >&2; exit 1; }
