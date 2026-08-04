@@ -7,7 +7,7 @@
 **Supported Platforms**
 
 - ROS-Noetic on Ubuntu20.04
-- ROS-One on Ubuntu22.04
+<!-- - ROS-One on Ubuntu22.04 -->
 
 **Vehicles**
 
