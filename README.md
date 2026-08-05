@@ -2,12 +2,12 @@
 
 ***A repo. which maintains simulation tools in Gazebo for Robotics.***
 
-![](imgs/nanobot_sim.png)
+![](nanobot_sim.png)
 
 **Supported Platforms**
 
 - ROS-Noetic on Ubuntu20.04
-- ROS-One on Ubuntu22.04
+<!-- - ROS-One on Ubuntu22.04 -->
 
 **Vehicles**
 
