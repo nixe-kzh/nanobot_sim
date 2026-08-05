@@ -68,6 +68,8 @@ roslaunch diff_car_gazebo diff_car_gazebo.launch \
   world_name:=$(rospack find gazebo_worlds)/worlds/clearpath_playpen.world
 ```
 
+***Note!!! For details on the use of specific vehicle, please refer to `README.md` in the sub-folders.***
+
 ## Related Work
 
 - [ugv_gazebo_sim](https://github.com/agilexrobotics/ugv_gazebo_sim): AgileX Product Gazebo Simulate.
