@@ -7,13 +7,15 @@ set -Eeuo pipefail
 # -----------------------------------------------------------------------------
 
 PX4_DIR="${PX4_DIR:-$HOME/px4_dev}"
-EXTRA_WS_SETUP="${EXTRA_WS_SETUP:-}"
 
 WORLD_NAME="${WORLD_NAME:-staggered_blocks_50m.world}"
 SDF_NAME="${SDF_NAME:-iris_lidar/iris_lidar.sdf}"
 GUI_ENABLE="${GUI_ENABLE:-true}"
 PX4_SIM_SPEED="${PX4_SIM_SPEED:-1.0}"
 LAUNCH_FILE="${LAUNCH_FILE:-mavros_posix_sitl.launch}"
+SPAWN_X="${SPAWN_X:-0.0}"
+SPAWN_Y="${SPAWN_Y:-0.0}"
+SPAWN_Z="${SPAWN_Z:-0.1}"
 
 # 0: 不配置；1: px4-mavlink stream；2: MAVROS mavcmd
 STREAM_CONFIG_METHOD="${STREAM_CONFIG_METHOD:-2}"
@@ -31,6 +33,7 @@ PX4_BUILD_DIR="$PX4_DIR/build/px4_sitl_default"
 PX4_MAVLINK_BIN="$PX4_BUILD_DIR/bin/px4-mavlink"
 GAZEBO_SETUP_SCRIPT="$PX4_DIR/Tools/simulation/gazebo-classic/setup_gazebo.bash"
 ROSLAUNCH_PID=""
+
 
 # roslaunch 在独立进程组中运行，退出脚本时只清理本脚本启动的进程。
 cleanup() {
@@ -54,21 +57,31 @@ trap 'exit 143' TERM
 # 3. 检查配置值以及 PX4、launch 
 # -----------------------------------------------------------------------------
 
-[[ -d "$PX4_DIR" ]] || { echo "Error: PX4 路径不存在: $PX4_DIR" >&2; exit 1; }
-[[ -f "$GAZEBO_SETUP_SCRIPT" ]] || { echo "Error: Gazebo setup 不存在: $GAZEBO_SETUP_SCRIPT" >&2; exit 1; }
-[[ -f "$PX4_DIR/launch/$LAUNCH_FILE" ]] || { echo "Error: PX4 launch 文件不存在: $PX4_DIR/launch/$LAUNCH_FILE" >&2; exit 1; }
-[[ "$STREAM_CONFIG_METHOD" =~ ^[012]$ ]] || { echo "Error: STREAM_CONFIG_METHOD 只能是 0、1 或 2" >&2; exit 1; }
-[[ "$STREAM_TARGET_RATE_HZ" =~ ^[1-9][0-9]*$ ]] || { echo "Error: STREAM_TARGET_RATE_HZ 必须是正整数" >&2; exit 1; }
-[[ "$MAVROS_CONNECT_TIMEOUT_SEC" =~ ^[1-9][0-9]*$ ]] || { echo "Error: MAVROS_CONNECT_TIMEOUT_SEC 必须是正整数" >&2; exit 1; }
+[[ -d "$PX4_DIR" ]] || { 
+    echo "Error: PX4 路径不存在: $PX4_DIR" >&2; exit 1; }
+[[ -f "$GAZEBO_SETUP_SCRIPT" ]] || { 
+    echo "Error: Gazebo setup 不存在: $GAZEBO_SETUP_SCRIPT" >&2; exit 1; }
+[[ -f "$PX4_DIR/launch/$LAUNCH_FILE" ]] || { 
+    echo "Error: PX4 launch 文件不存在: $PX4_DIR/launch/$LAUNCH_FILE" >&2; exit 1; }
+[[ "$STREAM_CONFIG_METHOD" =~ ^[012]$ ]] || { 
+    echo "Error: STREAM_CONFIG_METHOD 只能是 0、1 或 2" >&2; exit 1; }
+[[ "$STREAM_TARGET_RATE_HZ" =~ ^[1-9][0-9]*$ ]] || { 
+    echo "Error: STREAM_TARGET_RATE_HZ 必须是正整数" >&2; exit 1; }
+[[ "$MAVROS_CONNECT_TIMEOUT_SEC" =~ ^[1-9][0-9]*$ ]] || { 
+    echo "Error: MAVROS_CONNECT_TIMEOUT_SEC 必须是正整数" >&2; exit 1; }
 
-if [[ -n "$EXTRA_WS_SETUP" ]]; then
-    [[ -f "$EXTRA_WS_SETUP" ]] || { echo "Error: 工作空间环境不存在: $EXTRA_WS_SETUP" >&2; exit 1; }
-    # shellcheck disable=SC1090
-    source "$EXTRA_WS_SETUP"
-fi
+FLOAT_PATTERN='^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)([eE][+-]?[0-9]+)?$'
+for variable_name in SPAWN_X SPAWN_Y SPAWN_Z; do
+    [[ "${!variable_name}" =~ $FLOAT_PATTERN ]] || {
+        echo "Error: $variable_name 必须是数值" >&2
+        exit 1
+    }
+done
+
+
 
 # -----------------------------------------------------------------------------
-# 4. 加载 PX4/Gazebo 环境，检查 ROS 命令，并解析 world 和模型路径
+# 4. 加载 PX4/Gazebo 环境并解析 world 和模型路径
 # -----------------------------------------------------------------------------
 
 # PX4 的 setup 脚本会追加这些变量，set -u 下需要先初始化。
@@ -77,19 +90,11 @@ export GAZEBO_MODEL_PATH="${GAZEBO_MODEL_PATH:-}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:-}"
 export ROS_PACKAGE_PATH="${ROS_PACKAGE_PATH:-}"
 
+
 # shellcheck disable=SC1090
 source "$GAZEBO_SETUP_SCRIPT" "$PX4_DIR" "$PX4_BUILD_DIR"
 export ROS_PACKAGE_PATH="$ROS_PACKAGE_PATH:$PX4_DIR:$PX4_DIR/Tools/simulation/gazebo-classic/sitl_gazebo-classic"
 
-command -v roslaunch >/dev/null 2>&1 || { echo "Error: 未找到 roslaunch，请先 source ROS 1 环境" >&2; exit 1; }
-command -v rospack >/dev/null 2>&1 || { echo "Error: 未找到 rospack，请先 source ROS 1 环境" >&2; exit 1; }
-command -v rostopic >/dev/null 2>&1 || { echo "Error: 未找到 rostopic，请先 source ROS 1 环境" >&2; exit 1; }
-command -v setsid >/dev/null 2>&1 || { echo "Error: 未找到 setsid 命令" >&2; exit 1; }
-command -v timeout >/dev/null 2>&1 || { echo "Error: 未找到 timeout 命令" >&2; exit 1; }
-
-if [[ "$STREAM_CONFIG_METHOD" == "2" ]]; then
-    command -v rosrun >/dev/null 2>&1 || { echo "Error: 未找到 rosrun，请先 source ROS 1 环境" >&2; exit 1; }
-fi
 
 WORLD_PKG_PATH="$(rospack find gazebo_worlds 2>/dev/null)" || {
     echo "Error: ROS package 'gazebo_worlds' 未找到" >&2
@@ -104,16 +109,14 @@ GAZEBO_PKG_PATH="$(rospack find mavlink_sitl_gazebo 2>/dev/null)" || {
 WORLD_PATH="$WORLD_PKG_PATH/worlds/$WORLD_NAME"
 SDF_PATH="$GAZEBO_PKG_PATH/models/$SDF_NAME"
 
-[[ -f "$WORLD_PATH" ]] || { echo "Error: world 文件不存在: $WORLD_PATH" >&2; exit 1; }
-[[ -f "$SDF_PATH" ]] || { echo "Error: SDF 文件不存在: $SDF_PATH" >&2; exit 1; }
+[[ -f "$WORLD_PATH" ]] || { 
+    echo "Error: world 文件不存在: $WORLD_PATH" >&2; exit 1; }
+[[ -f "$SDF_PATH" ]] || { 
+    echo "Error: SDF 文件不存在: $SDF_PATH" >&2; exit 1; }
 
 # -----------------------------------------------------------------------------
 # 5. 在独立进程组中启动 PX4 SITL、Gazebo 和 MAVROS
 # -----------------------------------------------------------------------------
-
-echo ">> 启动 PX4 SITL"
-echo ">> world: $WORLD_PATH"
-echo ">> model: $SDF_PATH"
 
 setsid env PX4_SIM_SPEED_FACTOR="$PX4_SIM_SPEED" \
     roslaunch px4 "$LAUNCH_FILE" \
@@ -121,9 +124,9 @@ setsid env PX4_SIM_SPEED_FACTOR="$PX4_SIM_SPEED" \
     sdf:="$SDF_PATH" \
     gui:="$GUI_ENABLE" \
     interactive:=false \
-    x:=0.0 \
-    y:=0.0 \
-    z:=0.1 &
+    x:="$SPAWN_X" \
+    y:="$SPAWN_Y" \
+    z:="$SPAWN_Z" &
 ROSLAUNCH_PID=$!
 
 # -----------------------------------------------------------------------------

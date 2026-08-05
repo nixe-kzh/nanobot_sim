@@ -125,7 +125,7 @@ cd ~/nanobot_ws && source devel/setup.bash
 rosrun quad_uav_gazebo run_utils.sh
 ```
 
-该脚本会依次启动 `gt2px4.py`、`vel2world.py` 和 `pc2body.py`。
+该脚本会依次启动 `gt_to_px4.py`、`vel_to_world.py` 和 `cloud_to_world.py`。
 
 4. **结束后**清理环境
 

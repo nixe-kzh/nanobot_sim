@@ -7,10 +7,10 @@ catkin_package()
 
 # Install ROS Python nodes and let catkin rewrite their shebang when needed.
 catkin_install_python(PROGRAMS
-  scripts/gt2px4.py
-  scripts/pc2body.py
+  scripts/cloud_to_world.py
+  scripts/gt_to_px4.py
   scripts/rc_sim.py
-  scripts/vel2world.py
+  scripts/vel_to_world.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

@@ -73,13 +73,12 @@ set_px4_parameter EKF2_EV_CTRL 15
 set_px4_parameter EKF2_HGT_REF 3
 set_px4_parameter EKF2_GPS_CTRL 0
 
-# Forward command-line private parameters to gt2px4.py. The other two nodes
-# use their defaults and can still be configured through rosparam.
-start_node "Gazebo 真值转 PX4" rosrun quad_uav_gazebo gt2px4.py "$@"
+
+start_node "Gazebo 真值转 PX4" rosrun quad_uav_gazebo gt_to_px4.py "$@"
 sleep "$STARTUP_DELAY_SEC"
-start_node "机体系速度转世界系 odom" rosrun quad_uav_gazebo vel2world.py
+start_node "机体系速度转世界系 odom" rosrun quad_uav_gazebo vel_to_world.py
 sleep "$STARTUP_DELAY_SEC"
-start_node "点云转body系" rosrun quad_uav_gazebo pc2body.py
+start_node "点云转世界系" rosrun quad_uav_gazebo cloud_to_world.py
 
 echo ">> 全部节点已启动；按 Ctrl+C 统一退出"
 wait -n "${NODE_PIDS[@]}"
