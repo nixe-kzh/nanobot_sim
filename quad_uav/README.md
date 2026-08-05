@@ -49,17 +49,29 @@ cd <path-to-nanobot-ws>/src/nanobot_sim/quad_uav
 chmod +x ./quad_uav_gazebo/scripts/*.sh
 chmod +x ./quad_uav_gazebo/scripts/*.py
 
-# 启动 px4-sitl
-cd <path-to-nanobot-ws>
-source devel/setup.bash
-cd <path-to-nanobot-ws>/src/nanobot_sim/quad_uav
-./quad_uav_gazebo/scripts/rspx4.sh
+2. 启动 px4-sitl
 
-# 使用脚本将雷达系点云旋转至Body系
-python3 ./quad_uav_gazebo/scripts/pointcloud_to_body.py
+```
+cd ~/nanobot_ws && source devel/setup.bash
+rosrun quad_uav_gazebo rspx4.sh
+```
 
-# 结束后清理环境
-./quad_uav_gazebo/scripts/clean_env.sh
+3. 启动 Gazebo 真值定位与转换节点
+
+等待 `rspx4.sh` 显示 MAVROS 已连接后，在另一个终端执行：
+
+```bash
+cd ~/nanobot_ws && source devel/setup.bash
+rosrun quad_uav_gazebo run_utils.sh
+```
+
+该脚本会依次启动 `gt_to_px4.py`、`vel_to_world.py` 和 `cloud_to_world.py`。
+
+4. **结束后**清理环境
+
+```
+cd ~/nanobot_ws && source devel/setup.bash
+rosrun quad_uav_gazebo clean_env.sh
 ```
 
 ## Diff-Planner
@@ -79,34 +91,33 @@ cd <path-to-nanobot-ws> && catkin_make
 
 - Terminal 1: px4-sitl
 
-```bash
-cd <path-to-nanobot-ws> && source devel/setup.bash
-roscd quad_uav_gazebo/
-./scripts/rspx4.sh
+- Terminal 1: 启动px4sitl
+```
+cd ~/nanobot_ws && source devel/setup.bash
+rosrun quad_uav_gazebo rspx4.sh
 ```
 
-- Terminal 2: px4ctrl
+- Terminal 2: 启动真值、odom 与点云转换
 
-```bash
-cd <path-to-nanobot-ws> && source devel/setup.bash
+```
+cd ~/nanobot_ws && source devel/setup.bash
+rosrun quad_uav_gazebo run_utils.sh
+```
+
+- Terminal 3: 启动px4ctrl
+
+```
+cd ~/nanobot_ws && source devel/setup.bash
 roslaunch px4ctrl run_ctrl_sim.launch
 ```
 
-- Terminal 3: rc sim
+- Terminal 4: 启动 rc sim
 
-```bash
-cd <path-to-nanobot-ws> && source devel/setup.bash
+```
+cd ~/nanobot_ws && source devel/setup.bash
 rosrun quad_uav_gazebo rc_sim.py
-
-# 输入 '1' 起飞
 ```
-
-- Terminal 4: 点云转换
-
-```bash
-cd <path-to-nanobot-ws> && source devel/setup.bash
-rosrun quad_uav_gazebo pointcloud_to_body.py
-```
+> 输入 '1' 起飞
 
 - Terminal 5: planner
 
