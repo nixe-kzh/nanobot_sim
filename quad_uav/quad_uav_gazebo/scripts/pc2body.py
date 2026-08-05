@@ -16,7 +16,7 @@ are preserved. The output is unorganized because points inside the configurable
 body exclusion sphere are removed.
 
 Example:
-    rosrun <your_package> pointcloud_to_body.py \
+    rosrun quad_uav_gazebo pc2body.py \
       _input_topic:=/velodyne_points \
       _output_topic:=/velodyne_points_world \
       _odom_topic:=/mavros/local_position/odom \
@@ -25,7 +25,7 @@ Example:
 
 Set ``_use_tf:=true`` only if TF already provides a direct transform from the
 input cloud frame to ``target_frame`` at the cloud timestamp. In that mode,
-the static SDF extrinsic and odometry parameters are ignored.
+the static SDF extrinsic and odometry are ignored.
 """
 
 import math
@@ -111,7 +111,8 @@ class PointCloudToBody:
         if self.use_tf:
             self.tf_buffer = tf2_ros.Buffer(cache_time=rospy.Duration(10.0))
             self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
-        else:
+
+        if not self.use_tf:
             self.odom_subscriber = rospy.Subscriber(
                 self.odom_topic,
                 Odometry,
@@ -281,10 +282,11 @@ class PointCloudToBody:
                 + body_rotation[2, 2] * source_z
                 + body_translation[2]
             )
-            valid &= (
-                body_x * body_x + body_y * body_y + body_z * body_z
-                >= self.body_filter_radius * self.body_filter_radius
-            )
+            with np.errstate(invalid="ignore", over="ignore"):
+                valid &= (
+                    body_x * body_x + body_y * body_y + body_z * body_z
+                    >= self.body_filter_radius * self.body_filter_radius
+                )
 
         output_x = self._coordinate_view(output_data, message, x_field)
         output_y = self._coordinate_view(output_data, message, y_field)
@@ -309,19 +311,24 @@ class PointCloudToBody:
             + translation[2]
         )
 
-        # Filtering individual points makes an organized cloud invalid. Pack
-        # all retained point records into a compact, unorganized PointCloud2.
-        filtered_data = bytearray()
-        for row, column in zip(*np.nonzero(valid)):
-            offset = row * message.row_step + column * message.point_step
-            filtered_data.extend(output_data[offset : offset + message.point_step])
+        # View each complete point record as bytes and use NumPy boolean
+        # indexing to pack retained records in one native operation. This also
+        # handles organized clouds with row padding and avoids a Python loop
+        # over tens of thousands of points per scan.
+        point_records = np.ndarray(
+            shape=(message.height, message.width, message.point_step),
+            dtype=np.uint8,
+            buffer=output_data,
+            strides=(message.row_step, message.point_step, 1),
+        )
+        filtered_data = point_records[valid].tobytes()
 
         output = PointCloud2()
         output.header.seq = message.header.seq
         output.header.stamp = message.header.stamp
         output.header.frame_id = self.target_frame
         output.height = 1
-        output.width = len(filtered_data) // message.point_step
+        output.width = int(np.count_nonzero(valid))
         output.fields = message.fields
         output.is_bigendian = message.is_bigendian
         output.point_step = message.point_step
@@ -355,7 +362,7 @@ class PointCloudToBody:
 
 
 def main() -> None:
-    rospy.init_node("pointcloud_to_body")
+    rospy.init_node("pc2body")
     try:
         PointCloudToBody()
     except (TypeError, ValueError) as error:
