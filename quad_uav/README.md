@@ -32,14 +32,6 @@ git clone -b dev_nanobot https://github.com/zhan994/PX4-Autopilot.git --recursiv
 
 cd px4_dev
 sudo chmod +x ./Tools/setup/ubuntu.sh
-
-# 修改一下内容
-## ./Tools/setup/requirements.txt 的 `matplotlib>=3.0.*` 改为
-matplotlib>=3.0
-## ./Tools/setup/ubuntu.sh 的176行左右换源
-wget -O /tmp/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}-linux.tar.bz2 https://mirrors.tuna.tsinghua.edu.cn/armbian-releases/_toolchains/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}-${INSTALL_ARCH}-linux.tar.bz2 && \
-sudo tar -jxf /tmp/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}-linux.tar.bz2 -C /opt/;
-
 bash ./Tools/setup/ubuntu.sh
 
 # `sudo reboot`，验证是否开启gazebo页面
